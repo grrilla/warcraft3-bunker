@@ -3,7 +3,7 @@ Warcraft III Barracks Simulator - Enhancements
 
 ## Exercise
 
-mplement the following enhancements to the completed Warcraft III code. Write specs first and then implement the functionality.
+Implement the following enhancements to the completed Warcraft III code. Write specs first and then implement the functionality.
 
 Use the RSpec writing methodology from the weekend homework as reference or review it prior to starting, if you'd like.
 
