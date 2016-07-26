@@ -1,5 +1,8 @@
 class Unit
 
+  class InvalidUnitActionError < StandardError
+  end
+
   attr_reader :health_points, :attack_power
 
   def initialize(health_points,attack_power)
@@ -8,11 +11,17 @@ class Unit
   end
 
   def attack!(enemy)
-    enemy.damage(self.attack_power)
+    raise InvalidUnitActionError, 'Dead units cannot attack!' if self.dead?
+    raise InvalidUnitActionError, 'Cannot attack dead units!' if enemy.dead?
+    enemy.damage(self)
   end
 
-  def damage(attack)
-    @health_points -= attack
+  def damage(attacker)
+    @health_points -= attacker.attack_power
+  end
+
+  def dead?
+    @health_points <= 0
   end
 
 end

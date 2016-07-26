@@ -8,12 +8,4 @@ class Footman < Unit
     super(60,10)
   end
 
-  def attack!(enemy)
-    enemy.damage(self.attack_power)
-  end
-
-  def damage(attack)
-    @health_points -= attack
-  end
-
 end
