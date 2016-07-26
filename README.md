@@ -1,60 +1,55 @@
-Warcraft III Barracks Simulator
+Warcraft III Barracks Simulator - Enhancements
 ===============
 
-## Premise
+## Exercise
 
-Warcraft III is a famous strategy video game by Blizzard. In this game, players can build barracks and then use them to train footmen which they can later use to fight other players' units.
+mplement the following enhancements to the completed Warcraft III code. Write specs first and then implement the functionality.
 
-We're going to use OOP to model out Warcraft III's unit training for the Human Race. You'll be reading RSpec examples to determine what functionality needs to be built and then build it to make all the specs pass.
+Use the RSpec writing methodology from the weekend homework as reference or review it prior to starting, if you'd like.
 
-_NOTE_: The logic will not be identical to that of Warcraft III... deal with it!
+Though it's not standard practice, for our learning purposes you can write each enhancement as a new testno.rb file. Remember to require the spechelper at the top. On that note, refer to the other similar specs to remember syntax and how they are implemented.
 
-## Instructions
+Below are the list of enhancements you will be making to the Warcraft III code. Please do them in order.
 
-There are multiple test files provided. Each file progresses our development of the game further.
+## Enhancement 1
 
-In order to set up the environment properly to run the tests, we are going to introduce you to `bundler` which is a ruby utility that manages your application's dependencies. As we are going to start requiring multiple "helper" libraries, this is a good time to start learning best practices for maintaining your apps.
+In most strategy games, like Warcraft III, buildings can also be attacked by Units. Since a Barracks is a building, it has substantially more HP (500). Additionally, a Footman does only half of its AP as damage to a Barracks. This is because they are quite ineffective against buildings.
 
-## Setup
-Once you clone the gist, `cd` into the directory and run the command `bundle install`. This will read the `Gemfile` that is located in the directory and install all of the necessary dependencies, specifically in the versions that we want them.
+The damage amount should be an integer (Fixnum), but the ceiling (ceil) of the division should be used as the resulting amount.
 
-Run each set of tests (specs) as using the `bundle exec rspec` command from the project's root directory via command line: `bundle exec rspec spec/test_01.rb`.
+## Enhancement 2
 
-RSpec will output the results and initially you will see a bunch of failing tests. Your goal is the make all the tests pass for that file, before proceeding onto the next test file.
+Units start off alive but they die if their HP reaches 0 or lower. This is usually a result of receiving damage from combat.
 
-### Steps
+### Part 1
 
-1. Read the CODE for the spec file that you ran
-2. Understand what tests it contains and what each test in that file is expecting
-3. Start implementing your code to satisfy a particular test ("example")
-4. Run the test suite using the same `bundle exec rspec` command to verify that your code is passing the test you are trying to pass
-5. Repeat steps 1 through 4 until all tests pass for that suite.
+Define a method #dead? on the Unit class. We add it to Unit instead of Footman because all Units can die, not just Footmans or Peasants.
 
-Once all the tests are passing for that suite, run the next suite.
+### Part 2
 
-### Notes / Tips:
+A dead Unit cannot attack another Unit. Conversely, a living Unit will also not attack another Unit that is already dead.
 
-* In this assignment, you will only be reading/running RSpec files, not creating or modifying them.
-* As such, do not modify the code in the `test_` files
-* The `spec_helper.rb` file is just a convenience file that helps each test file require the files it needs to run. Do not edit it
-* The tests will require you to create new classes as you progress. This means you should create a new file for that class (good practice, and what this project is already doing and expecting)
-* Normal projects *do not* have their tests structured this way. We've done it here to facilitate incremental building and learning
-* The `pry` gem is available to you (already required) incase you want to use `binding.pry` for debugging purposes
+## Enhancement 3
 
-## External Resources
+Introduce a SiegeEngine Unit.
 
-It is recommended that you consume these resources and understand their underlying concepts before starting the project.
+### Part 1
 
-Video: [Variable Scopes in Ruby](http://www.youtube.com/watch?v=iLxKNUFHAnY)  
-StackOverflow: [Why use Ruby's attr_accessor, attr_reader, and attr_writer?](http://stackoverflow.com/questions/5046831/why-use-rubys-attr-accessor-attr-reader-and-attr-writer)  
-StackOverflow: [What is attr_accessor in Ruby?](http://stackoverflow.com/questions/4370960/what-is-attr-accessor-in-ruby)
+SiegeEngines will require lumber when built by a Barracks. Besides food and gold, Barracks therefore also need to have a lumber resource.
 
-## Topics covered:
+A Barracks starts off with 500 lumber.
 
-* How to create a class
-* How to create instance variables
-* How to synthesize readers/accessors (`attr_reader`, `attr_accessor`)
-* How to write a method
-* How to write your own `initialize` method
-* How to use inheritance to extend a class
-* Extending / inheriting methods via `super`
+### Part 2
+
+The SiegeEngine is very effective against buildings such as the Barracks. However, it is ineffective against other Units. (It can't attack them, as if they were dead.)
+
+So unlike with Footman (whose attacks do a fraction of the damage they normally would), a SiegeEngine does 2× damage against a Barracks.
+
+Also, SiegeEngines can attack other SiegeEngines even though they cannot attack any other Units (such as Peasants or Footmans.)
+
+SiegeEngines are initialized with the following stats.
+
+AP: 50
+HP: 400
+Cost: 200 gold, 60 lumber, 3 food
+Make note, you will need to require the siege_engine.rb file in spec_helper.rb.
